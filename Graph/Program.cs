@@ -16,14 +16,42 @@ namespace Graph
             //Create the graph
             CreateGraph(ref myGraph);
 
-            //Find a route from Idaho to South Dakota
-            Console.WriteLine("Finding a route from Idaho to South Dakota:");
-            Stack<Node<string>> route = GraphTraversal.DFS(myGraph, "IDAHO", "SOUTH DAKOTA");
+            //Find a route from Idaho to South Dakota - DFS
+            Console.WriteLine("Finding a route from Idaho to South Dakota - DFS:");
 
-            foreach (var city in route.Reverse())
+            try
             {
-                Console.WriteLine("{0}", city.Data.ToString());
+                Stack<Node<string>> route = GraphTraversal.DFS(myGraph, "IDAHO", "SOUTH DAKOTA");
+
+                foreach (var city in route.Reverse())
+                {
+                    Console.WriteLine("{0}", city.Data.ToString());
+                }
             }
+            catch (ArgumentException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+
+            Console.WriteLine();
+            
+            //Find a route from Idaho to South Dakota - BFS
+            Console.WriteLine("Finding a route from Idaho to South Dakota - BFS:");
+
+            try
+            {
+                List<Node<string>> route = GraphTraversal.BFS(myGraph, "IDAHO", "SOUTH DAKOTA");
+
+                foreach (var city in route.Reverse<Node<string>>())
+                {
+                    Console.WriteLine("{0}", city.Data.ToString());
+                }
+            }
+            catch (ArgumentException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+
 
             Console.ReadLine();
         }
